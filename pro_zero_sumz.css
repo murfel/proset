@@ -1,0 +1,263 @@
+@font-face {
+	font-family: BlondelBraille;
+	src: url(BlondelBraille.ttf);
+}
+
+body {
+  background-color: #f7f7f7;
+}
+
+.stats {
+  width: 124px;
+  height: 178px;
+  margin-left: 596px;
+  margin-top: -550px;  
+}
+
+.params {
+  float: left;
+  text-align: right;
+}
+
+.numbers {
+  margin-left: 10px;
+  float: left;
+  text-align: left;
+}
+
+.hint {
+  width: 124px;
+  padding: 7 0 7 0;
+  margin-top: 50px;
+  border:1px solid #c3c3c3;
+  border-radius: 8px;
+  display: inline-block;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.mini-card {
+  width: 178px;
+  height: 124px;
+  border-radius: 12px;
+  margin: 0;
+  padding: 0;
+  border:1px solid #c3c3c3;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.box {
+  width: 380px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border:1px solid #c3c3c3;
+  background: white;
+  font-size: 19px;
+}
+
+.theend {
+  width: 400px;
+  margin-bottom: 20px;
+  border:1px solid #c3c3c3;
+  background: white;
+  font-family: BlondelBraille;
+  font-size: 19px;
+}
+
+.card {
+  width: 124px;
+  height: 178px;
+  background: white;
+  border-radius: 12px;
+  margin: 0;
+  padding: 0;
+  border:1px solid #c3c3c3;
+  display: inline-block;
+}
+
+.ingame-card:hover {
+  cursor: pointer;
+}
+
+.theend-card:hover {
+  cursor: default;
+}
+
+.choosed {
+  background: #ededed;
+}
+
+.card:focus {
+  outline: none;
+}
+
+.hidden {
+  background: none;
+  border: none;
+}
+
+.button {
+  margin-left: 596px;
+  margin-top: -367px;
+  border: 1px solid;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.label {
+  width: 90px;
+  height: 46px;
+  background: white;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 66px;
+  font-size: 36px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.label-new {
+  width: 90px;
+  height: 46px;
+  background: white;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 39px;
+  font-size: 36px;
+}
+
+.pro {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 2px;
+  font-weight: bold;
+}
+
+.shirt {
+/*  position: absolute;
+  margin-top: 65px;
+  margin-left: 123px; */
+  width: 30px;
+  height: 30px;
+  background: green;
+}
+
+.circle {
+  position: absolute;
+  vertical-align: top;
+  width: 24px;
+  height: 24px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+
+}
+
+.row1 {
+  margin-top: 30px;
+}
+
+.row2 {
+  margin-top: 76px;
+}
+
+.row3 {
+  margin-top: 122px;
+}
+
+.col1 {
+  margin-left: 24px;
+}
+
+.col2 {
+  margin-left: 70px;
+}
+
+.r {
+  background: #ed1c24;
+  border: 1px solid;
+}
+
+.o {
+  background: #f68712;
+  border: 1px solid;
+}
+
+.y {
+  background: #fff200;
+  border: 1px solid;
+}
+
+.g {
+  background: #4dbd38;
+  border: 1px solid;
+}
+
+.b {
+  background: #33bef3;
+  border: 1px solid;
+}
+
+.p {
+  background: #7a1d90;
+  border: 1px solid;
+}
+
+.disabled {
+  background: none;
+  border: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+.a:link {
+	color: blue;
+}
+
+.a:visited {
+	color: blue;
+}
+
+.a:hover {
+	text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------------ */
+
+
+.collapse {
+  display: none;
+}
+
+.collapse.in {
+  display: block;
+}
+
+.collapsing.one {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: none;
+          transition: none;
+}
+
+.collapsing.two {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+          transition: height 0.35s ease;
+}

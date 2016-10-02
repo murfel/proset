@@ -1,0 +1,446 @@
+<html>
+<head>
+  <title>Proset</title>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="pro_zero_sumz.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <center>
+  <p><h2>Proset<sup onclick="spoil()" style="font-weight: 100; cursor: pointer">?</sup></h2></p>
+  
+  <div id="tip" class="box collapse two">
+  Find a set of cards with an even number of same-color circles for every color.<br><br>
+  Proset is an early 2000th <a href="http://mathcamp.org/">Mathcamp</a> fork of the <a href="https://en.wikipedia.org/wiki/Set_(game)">Set</a> game. Try the <a href="http://mathcamp.org/2015/proset/">Tim!'s version</a> or buy a deck of a visual fork of Proset, <a href="http://zerosumz.com/">Zero sumZ</a>.
+  </div>
+  <div id="theend" class="theend collapse two">
+    <p>Congratulations! You have completed the game.</p>
+    <p id="tweet-meet">
+    </p>
+    <p>
+    <div class="mini-card b" onclick="newGame()">
+        <div class="label-new">
+          <div class="pro">NEW</div>
+        </div>
+    </div>
+    </p>
+  </div>
+  
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  </br>
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  </br>
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  <div class="card theend-card" onclick="choose(this)">
+    <div class="circle row1 col1 r disabled"></div>
+    <div class="circle row1 col2 o disabled"></div>
+    <div class="circle row2 col1 y disabled"></div>
+    <div class="circle row2 col2 g disabled"></div>
+    <div class="circle row3 col1 b disabled"></div>
+    <div class="circle row3 col2 p disabled"></div>
+  </div>
+  </br>
+  <div class="card theend-card button b " onclick="check()">
+    <div class="label">
+      <div class="pro">PRO</div>
+    </div>
+  </div>
+  <div class="stats">
+    <span class="params">
+    #Sets:</br>
+    #Cards:</br>
+    #Hints:</br></br>
+    <!--Time/#Sets:-->      
+    </span>
+    <span class="numbers">
+    <span id="num-sets">3</span></br>
+    <span id="num-cards">14</span></br>
+    <span id="num-hints">0</span></br>
+    <!--<span id="mean-time">inf s</span>-->
+    </span>
+    <div class="hint-wrap"><div class="hint theend-card" onclick="hint()">Hint</div></div>
+  </div>
+  </center>
+</body>
+<script>
+
+function Deck() {
+  this.deck = generateDeck();
+  
+  
+  this.shuffle = function() {
+    shuffle(this.deck);
+  }
+  this.shuffle();
+  
+  this.dealCard = function() {
+    if (this.deck.length > 0) {
+      return this.deck.pop();
+    }
+    else {
+      return -1;
+    }
+  }
+
+}
+  
+function Hand() {
+  this.cards = [];
+  
+  this.addCard = function(card) {
+    this.cards.push(card);
+  }
+  
+  this.getValue = function() {
+    if (this.cards.length < 3) {
+      return -1;
+    }
+    else {
+      var value = [0,0,0,0,0,0];
+      for(var i=0; i<6; i++) {
+        for(var j=0; j < this.cards.length; j++) {
+          value[i] += this.cards[j][i];
+        }
+        if (value[i] % 2 === 0) {
+          value[i] = 0;
+        }
+      }
+      if (value[0]+value[1]+value[2]+value[3]+value[4]+value[5] === 0) {
+        return 0;
+      }
+      return value;
+    }
+  }
+
+  this.init = function() {
+    var cards = document.getElementsByClassName('card');
+    for (var i=0; i<7; i++) {
+      if (cards[i].classList.contains('choosed')) {
+        var card = [0,0,0,0,0,0];
+        var circle = cards[i].children;
+        for (var j=0; j<6; j++) {
+          if (!circle[j].classList.contains('disabled')) {
+            card[j] = 1;
+          }
+        }
+        this.addCard(card);
+      }
+    }
+  }
+}
+
+
+function generateDeck() {
+  deck = [[1, 0, 0, 1, 1, 1], [1, 0, 0, 1, 1, 0], [0, 1, 0, 1, 0, 0], [0, 1, 0, 1, 0, 1], [1, 1, 1, 0, 1, 0], [1, 1, 1, 0, 1, 1], [0, 0, 1, 0, 0, 1], [0, 0, 1, 0, 0, 0], [1, 0, 1, 0, 1, 1], [1, 0, 1, 0, 1, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 0, 0, 1], [1, 1, 0, 1, 1, 0], [1, 1, 0, 1, 1, 1], [0, 0, 0, 1, 0, 1], [0, 0, 0, 1, 0, 0], [1, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 1, 0], [0, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 0], [0, 0, 1, 1, 0, 0], [0, 0, 1, 1, 0, 1], [1, 0, 1, 1, 0, 1], [1, 0, 1, 1, 0, 0], [0, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1], [1, 1, 0, 0, 1, 1], [1, 1, 0, 0, 1, 0], [0, 0, 0, 0, 0, 1], [0, 1, 0, 0, 0, 0], [0, 1, 0, 0, 0, 1], [1, 1, 1, 1, 0, 0], [1, 1, 1, 1, 0, 1], [1, 0, 1, 1, 1, 0], [1, 0, 1, 1, 1, 1], [0, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 1], [1, 0, 0, 0, 1, 0], [1, 0, 0, 0, 1, 1], [0, 0, 1, 0, 1, 0], [0, 0, 1, 0, 1, 1], [1, 1, 0, 1, 0, 0], [1, 1, 0, 1, 0, 1], [1, 1, 1, 0, 0, 0], [1, 1, 1, 0, 0, 1], [1, 0, 1, 0, 0, 0], [1, 0, 1, 0, 0, 1], [1, 1, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1], [0, 1, 1, 0, 1, 0], [0, 1, 1, 0, 1, 1], [0, 1, 1, 1, 0, 0], [0, 1, 1, 1, 0, 1], [0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 1, 1], [1, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 1], [0, 0, 1, 1, 1, 0], [0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 1, 0], [0, 1, 0, 1, 1, 1]];
+//  deck = [[1, 0, 0, 1, 1, 1],[1, 0, 0, 1, 1, 1],[1, 0, 0, 1, 1, 1],[1, 0, 0, 1, 1, 1],[1, 0, 0, 1, 1, 1],[1, 0, 0, 1, 1, 1],[1, 0, 0, 1, 1, 0]]
+  return deck;
+}
+
+function shuffle(array) {
+  var currentIndex = array.length
+    , temporaryValue
+    , randomIndex
+    ;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
+function deal() {
+  var choosedCards = document.getElementsByClassName('choosed');
+  while (choosedCards.length > 0) {
+    numCards += 1;
+    var circles = choosedCards[0].children;
+    for(var i=0; i<6; i++) {
+      if (!circles[i].classList.contains('disabled')) {
+        circles[i].classList.add('disabled');
+      }
+    }
+    var circleImages = newDeck.dealCard();
+    if (circleImages === -1) {
+      choosedCards[0].classList.add('hidden');
+    }
+    else {
+      for(var i=0; i<6; i++) {
+        if (circleImages[i] === 1) {
+          circles[i].classList.remove('disabled') 
+        }
+      }
+    }
+    if (numCards >= 56) {
+      gameState = false;
+      var cards = document.getElementsByClassName('ingame-card');
+      while (cards.length > 0) {
+        cards[0].classList.add('theend-card')
+        cards[0].classList.remove('ingame-card')
+      }
+    }
+    choosedCards[0].classList.remove('choosed');
+  }
+/*  if (hinted === false) {
+    numSets += 1;
+    time.push(Date.now());
+    
+    var timeDiff = [];
+    for(var i = 1; i < time.length; i++) {
+      timeDiff.push(time[i] - time[i-1]);
+    }
+    // we don't count two worsest times
+    timeDiff.sort();
+    timeDiff.pop();
+    timeDiff.pop();
+    
+    var allTheTime = timeDiff.reduce(function(prev, cur) {
+      return prev + cur;
+    });
+    
+    meanTime = allTheTime / (numSets-2);
+  }*/
+  if (hinted === false) {
+    numSets += 1;
+  }
+  hinted = false;
+  document.getElementById("num-sets").innerHTML = numSets;
+  document.getElementById("num-cards").innerHTML = numCards;
+  document.getElementById("num-hints").innerHTML = numHints;
+  //document.getElementById("mean-time").innerHTML = meanTime;
+}
+
+function choose(me) {
+  if (gameState != false) {
+    me.classList.contains('choosed') ? me.classList.remove('choosed') : me.classList.add('choosed');
+  }
+}
+
+function check() {
+  if (gameState != false) {
+    var newHand = new Hand();
+    newHand.init();
+    if (newHand.getValue() === 0) {
+      deal();
+      if (gameState === false) {
+        //document.getElementById("tweet-meet").innerHTML = '<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://pro-zero-sumz.murfel.name" data-text="I\'ve found ' + numSets + ' #Zerosumz w/ ' + numHints + ' hints at" data-size="large">Tweet</a>';
+        //window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+  
+        var theendTip = document.getElementById('theend');
+        theendTip.classList.remove('two');
+        theendTip.classList.add('in');
+      }
+    }
+  }
+}
+
+function hint() {
+  if (gameState != false) {
+    var subsets = findSubsets();
+    orderSubsets(subsets);
+    
+    if (hinted === false) {
+      hinted = 0;
+      numHints += 1;
+      document.getElementById("num-hints").innerHTML = numHints;
+    }
+    else {
+      hinted += 1;
+    }
+    var hintNum = hinted % subsets.length;
+    
+    var cards = document.getElementsByClassName('card');
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].classList.contains('choosed')) {
+        cards[i].classList.remove('choosed');
+      }
+    }
+    for (var i = 0; i < subsets[hintNum].length; i++) {
+      if (subsets[hintNum][i] === 1) {
+        cards[i].classList.add('choosed');
+      }
+    }
+  }
+}
+
+function findSubsets() {
+  var cards = document.getElementsByClassName('card');
+  var cardsIndecies = genCardsInds(7);
+  var subsetsIndecies = [];
+  
+  for (var i = 0; i < cardsIndecies.length; i++) {
+    var newHand = new Hand();
+    for (var j = 0; j < 7; j++) {
+      if (cardsIndecies[i][j] === 1) {
+        var card = [0,0,0,0,0,0];
+        var circle = cards[j].children;
+        for (var k=0; k<6; k++) {
+          if (!circle[k].classList.contains('disabled')) {
+            card[k] = 1;
+          }
+        }
+        newHand.addCard(card);
+      }
+    }
+    if (newHand.getValue() === 0) {
+      subsetsIndecies.push(cardsIndecies[i].slice(0));
+    }
+  }
+  return subsetsIndecies;
+}
+
+function genCardsInds(setLen) {
+  var inds = [[0,0,0,0,0,0,0]];
+  var i = 1;
+  for (var i = 1; i < Math.pow(2, setLen); i++) {
+    var j = setLen-1;
+    while (inds[i-1][j] === 1) {
+      j -= 1;
+    }
+    inds.push(inds[i-1].slice(0));
+    inds[i][j] = 1;
+    for (j+=1; j < setLen; j++) {
+      inds[i][j] = 0;
+    }
+  }
+
+  var inds2pop = [];
+  for (var i = 0; i < inds.length; i++) {
+    var numTrues = 0;
+    for (var j = 0; j < setLen; j++) {
+      if (inds[i][j] === 1) {
+        numTrues++;
+      }
+    }
+    if (numTrues < 3) {
+      inds2pop.push(i);
+    }
+  }
+  for (var i = inds2pop.length-1; i >= 0; i--) {
+    inds.splice(inds2pop[i], 1);
+  }
+  
+  return inds;
+}
+
+function orderSubsets(subsets) {
+  var numCards = [[], [], [], [], [], [], []];
+  for (var i = 0; i < subsets.length; i++) {
+    var len = 0;
+    for (var j = 0; j < subsets[i].length; j++) {
+      if (subsets[i][j] === 1) {
+        len++;
+      }
+    }
+    numCards[len-1].push(i);
+  }
+  var newOrder = [];
+  for (var i = numCards.length-1; i > 1; i--) {
+    for (var j = 0; j < numCards[i].length; j++) {
+      newOrder.push(subsets[numCards[i][j]].slice(0));
+    }
+  }
+  subsets.splice(0,10);
+  for (var i = 0; i < newOrder.length; i++) {
+    subsets.push(newOrder[i].slice(0));
+  }
+}
+
+function spoil() {
+  document.getElementById('tip').classList.contains('in') ? document.getElementById('tip').classList.remove('in') : document.getElementById('tip').classList.add('in');
+}
+
+function newGame() {
+  gameState = true;
+  hinted = false;
+  numSets = -1;
+  numCards = -7;
+  numHints = 0;
+  meanTime = 0;
+  time = [];
+  time.push(Date.now());
+  
+  var cards = document.getElementsByClassName('card');
+  var i = 0;
+  while(i <= 6) {
+    cards[i].classList.add('choosed');
+    i++;
+  }
+  var cards = document.getElementsByClassName('hidden');
+  while (cards.length > 0) {
+    cards[0].classList.remove('hidden');
+  }
+  var cards = document.getElementsByClassName('theend-card');
+  while (cards.length > 0) {
+    cards[0].classList.add('ingame-card')
+    cards[0].classList.remove('theend-card')
+  }
+  
+  var theendTip = document.getElementById('theend');
+  theendTip.classList.remove('in');
+  theendTip.classList.add('two');
+  
+  //document.getElementById("tweet-meet").innerHTML = '';
+  
+  newDeck = new Deck();
+  deal();
+}
+
+newGame();
+
+</script>
+</html>
