@@ -12,4 +12,4 @@ See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 ## Attribution
 The BlondelBraille [font](BlondelBraille.ttf) belongs to its author.
 
-   [Play it]: <http://proset.murfel.name>
+   [Play it]: <https://murfel.github.io/proset/>
